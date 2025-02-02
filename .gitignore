@@ -1,0 +1,10 @@
+# Nvim
+.cache
+
+# Build folders
+build
+release
+
+# Miscellaneous
+todo
+
