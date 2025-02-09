@@ -5,6 +5,12 @@
 #include <linux/input.h>
 #include <unistd.h>
 
+#define TRY_IOCTL(fd_, request_, value)                                        \
+  if (ioctl(fd_, request_, value) == -1) {                                     \
+    return error::CONTROLLER_CREATE;                                           \
+  }
+
+
 namespace vc::uinput {
 
 static i32 emit(i32 fd, u16 type, u16 code, i32 value) noexcept {

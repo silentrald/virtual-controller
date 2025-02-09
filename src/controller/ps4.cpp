@@ -1,5 +1,6 @@
 #include "./ps4.hpp"
 #include "../helper.hpp"
+#include <algorithm>
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
@@ -8,11 +9,6 @@
 #include <linux/uinput.h>
 #include <sys/ioctl.h>
 #include <unistd.h>
-
-#define TRY_IOCTL(fd_, request_, value)                                        \
-  if (ioctl(fd_, request_, value) == -1) {                                     \
-    return error::CONTROLLER_CREATE;                                           \
-  }
 
 namespace vc {
 
@@ -162,7 +158,9 @@ void PS4Controller::move_stick(PS4Stick stick, u8 value) noexcept {
 }
 
 void PS4Controller::move_stickf(PS4Stick stick, f32 value) noexcept {
-  this->handle_analog(stick, 0xff * value);
+  this->handle_analog(
+      stick, std::clamp(static_cast<u32>(0xff * value), 0x00U, 0xffU)
+  );
 }
 
 bool PS4Controller::is_button_pressed(PS4Button button) const noexcept {

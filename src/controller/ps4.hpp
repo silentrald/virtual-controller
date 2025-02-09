@@ -73,21 +73,42 @@ public:
 
   void remap(PS4Button button, u16 code) noexcept;
 
+  // Call sync to register the button press
   void press_button(PS4Button button) noexcept;
+  // Call sync to register the button release
   void release_button(PS4Button button) noexcept;
 
+  // Call sync to register the button press
   void press_up() noexcept;
+  // Call sync to register the button press
   void press_down() noexcept;
+  // Call sync to register the button press
   void press_left() noexcept;
+  // Call sync to register the button press
   void press_right() noexcept;
 
+  // Call sync to register the button release
   void release_up() noexcept;
+  // Call sync to register the button release
   void release_down() noexcept;
+  // Call sync to register the button release
   void release_left() noexcept;
+  // Call sync to register the button release
   void release_right() noexcept;
 
+  /**
+   * Call sync to register the move stick action
+   * @param stick
+   * @param value - default set to the neutral value position
+   */
   void move_stick(PS4Stick stick, u8 value = 0x7f) noexcept;
-  void move_stickf(PS4Stick stick, float value = 0.5F) noexcept;
+
+  /**
+   * Call sync to register the move stick action
+   * @param stick
+   * @param value - [0.0F, 1.0F], will clamp the value if it exceeds the value
+   */
+  void move_stickf(PS4Stick stick, float value) noexcept;
 
   [[nodiscard]] bool is_button_pressed(PS4Button button) const noexcept;
   [[nodiscard]] u8 get_stick_u8(PS4Stick stick) const noexcept;
